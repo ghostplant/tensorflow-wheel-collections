@@ -1,0 +1,19 @@
+FROM nvidia/cuda:8.0-cudnn6-devel-centos7
+MAINTAINER CUI Wei <ghostplant@qq.com>
+
+RUN curl -L https://copr.fedorainfracloud.org/coprs/vbatts/bazel/repo/epel-7/vbatts-bazel-epel-7.repo > /etc/yum.repos.d/vbatts-bazel-epel-7.repo
+RUN yum -y install bazel git which numpy patch python-devel
+
+RUN cd root && git clone http://github.com/tensorflow/tensorflow --branch r1.8 --single-branch --depth 1
+RUN ln -s libdevice.compute_50.10.bc /usr/local/cuda/nvvm/libdevice/libdevice.10.bc && cp -r /usr/include/python2.7/* /usr/include
+
+# RUN echo "/usr/local/cuda-8.0/targets/x86_64-linux/lib/stubs" > /etc/ld.so.conf.d/cuda-8.0-stubs.conf && ldconfig
+
+WORKDIR /root/tensorflow
+
+RUN sed -i 's/^#if TF_HAS_.*$/#if !defined(__NVCC__)/g' tensorflow/core/platform/macros.h
+
+RUN /bin/echo -e "/usr/bin/python\n\nn\nn\nn\nn\nn\nn\nn\nn\nn\ny\n8.0\n/usr/local/cuda\n6.0\n/usr/local/cuda\n\n\n\nn\n\nn\n-march=native\nn\n" | ./configure
+
+RUN bazel build --config=opt --config=cuda //tensorflow/tools/pip_package:build_pip_package
+RUN rm -rf /root/tensorflow_pkg && bazel-bin/tensorflow/tools/pip_package/build_pip_package /root/tensorflow_pkg

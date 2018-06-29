@@ -1,3 +1,22 @@
-Provide Tensorflow-GPU builds for some CUDA versions not provided by official.
+### Provide Tensorflow-GPU builds for some CUDA versions not provided by official.
 
 The list of all wheels can be found in the [releases page](https://github.com/ghostplant/tensorflow-cuda8-cudnn6/releases).
+
+### Examples:
+
+Install Tensorflow-GPU 1.8 on Ubuntu 16.04 with CUDA driver 8.0 and CUDNN 6.0 and Python 2.7:
+```sh
+pip3 install https://github.com/ghostplant/tensorflow-cuda8-optimized/releases/download/tf1.8-py35-cuda8-cudnn6/tensorflow-1.8.0-cp35-cp35m-linux_x86_64.whl
+```
+
+Install Tensorflow-GPU 1.8 on Centos7 with CUDA driver 8.0 and CUDNN 6.0 and Python 2.7:
+```sh
+pip2 install https://github.com/ghostplant/tensorflow-cuda8-optimized/releases/download/tf1.8-py27-cuda8-cudnn6-centos7/tensorflow-1.8.0-cp27-cp27mu-linux_x86_64.whl
+```
+
+### Compile Native Tensorflow-GPU:
+```sh
+git clone https://github.com/ghostplant/tensorflow-cuda8-optimized
+cd tensorflow-cuda8-optimized
+docker built -t tf1.8-py3-cuda8-cudnn71 -f Dockerfile.tf18-py35-cuda8-cudnn7104
+```

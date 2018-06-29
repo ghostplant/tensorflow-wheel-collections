@@ -1,6 +1,6 @@
-### Provide Tensorflow-GPU builds for some CUDA versions not provided by official.
+### Provide Tensorflow-GPU builds for some CUDA versions not provided by official Tensorflow repo.
 
-The list of all wheels can be found in the [releases page](https://github.com/ghostplant/tensorflow-cuda8-cudnn6/releases).
+The list of all wheel-format downloads can be found in the [releases page](https://github.com/ghostplant/tensorflow-cuda8-cudnn6/releases).
 
 ### Examples:
 
@@ -20,5 +20,5 @@ git clone https://github.com/ghostplant/tensorflow-cuda8-optimized
 cd tensorflow-cuda8-optimized
 docker build . -t tf1.8-py3-cuda8-cudnn6 -f Dockerfile.tf18-py35-cuda8-cudnn6021
 docker run -it --rm -v `pwd`:/mnt tf1.8-py3-cuda8-cudnn6 bash -c 'cp ../tensorflow_pkg/*.whl /mnt'
-pip3 install ./tensorflow-1.8.0-cp35-cp35m-linux_x86_64.whl
+pip3 install ./*.whl
 ```

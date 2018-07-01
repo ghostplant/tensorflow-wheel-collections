@@ -7,7 +7,7 @@ The list of all wheel-format downloads can be found in the [releases page](https
 git clone https://github.com/ghostplant/tensorflow-cuda8-optimized
 cd tensorflow-cuda8-optimized
 # Compile the source code of Tensorflow
-docker build . -t tf1.8-py3-cuda8-cudnn6 -f Dockerfile.tf18-py35-cuda8-cudnn6021
+docker build . -t tf1.8-py3-cuda8-cudnn6 -f Dockerfile.tf18-py35-cuda8-cudnn6021-ubuntu
 # Copy the wheel package from inside docker container
 docker run -it --rm -v `pwd`:/mnt tf1.8-py3-cuda8-cudnn6 bash -c 'cp ../tensorflow_pkg/*.whl /mnt'
 # Setup package on physical host

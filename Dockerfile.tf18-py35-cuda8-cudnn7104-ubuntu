@@ -1,6 +1,7 @@
 FROM nvidia/cuda:8.0-cudnn7-devel-ubuntu16.04
 MAINTAINER CUI Wei <ghostplant@qq.com>
 
+RUN echo 'nameserver 8.8.8.8' > /etc/resolv.conf
 RUN apt update && apt install -y --no-install-recommends openjdk-8-jdk curl git vim-tiny less netcat-openbsd zlib1g-dev bash-completion g++ python3-setuptools python3-pip python3-wheel python3-numpy python3-dev && rm -rf /var/lib/apt/lists/*
 RUN curl -Ls https://github.com/bazelbuild/bazel/releases/download/0.10.0/bazel_0.10.0-linux-x86_64.deb > bazel.deb && dpkg -i bazel.deb && rm bazel.deb
 RUN cd root && git clone http://github.com/tensorflow/tensorflow --branch r1.8 --single-branch --depth 1

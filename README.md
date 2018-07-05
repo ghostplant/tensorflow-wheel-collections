@@ -1,6 +1,6 @@
 ### Provide Tensorflow-GPU builds for some CUDA versions not provided by official Tensorflow repo.
 
-The list of all wheel-format downloads can be found in the [releases page](https://github.com/ghostplant/tensorflow-cuda8-cudnn6/releases).
+The list of all wheel-format downloads can be found in the [download page](https://github.com/ghostplant/tensorflow-cuda8-cudnn6/releases).
 
 ### Compile Native Tensorflow-GPU:
 ```sh

@@ -24,17 +24,10 @@ Install Tensorflow-GPU 1.8 on `Centos7` with `CUDA 8.0` and `CUDNN 6.0` and `Pyt
 pip2 install https://github.com/ghostplant/tensorflow-cuda8-optimized/releases/download/tf1.8-py27-cuda8-cudnn6-centos7/tensorflow-1.8.0-cp27-cp27mu-linux_x86_64.whl
 ```
 
-### Compile Native Tensorflow-GPU in Linux Docker manually:
+### Compile Native Tensorflow-GPU in Linux manually with Docker:
 ```sh
 git clone https://github.com/ghostplant/tensorflow-cuda8-optimized
 cd tensorflow-cuda8-optimized
 
-# Compile the source code of Tensorflow
-docker build . -t tf1.8-py3-cuda8-cudnn6 -f Dockerfile.tf18-py35-cuda8-cudnn6021-ubuntu
-
-# Copy the wheel package from inside docker container
-docker run -it --rm -v `pwd`:/mnt tf1.8-py3-cuda8-cudnn6 bash -c 'cp ../tensorflow_pkg/*.whl /mnt'
-
-# Setup package on physical host
-pip3 install ./*.whl
+./make-tf18-py35-cuda8-cudnn7-ubuntu.sh
 ```

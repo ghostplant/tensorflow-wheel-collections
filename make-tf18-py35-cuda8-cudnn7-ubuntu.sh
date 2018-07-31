@@ -6,3 +6,4 @@ docker run -it --rm -v `pwd`:/mnt tensorflow bash -c 'cp ../tensorflow_pkg/*.whl
 echo "You can install the wheel package via:"
 echo
 echo "pip3 install" ./*.whl
+echo

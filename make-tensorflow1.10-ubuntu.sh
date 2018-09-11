@@ -24,6 +24,10 @@ WORKDIR /root/tensorflow
 
 # 1st Y: GDR; 2nd Y: CUDA; 
 RUN /bin/echo -e "/usr/bin/python3\n\nN\nN\nN\nN\nN\nN\nY\nN\nN\nY\n${CUDA_VERSION}\n/usr/local/cuda\n${CUDNN_VERSION}\n/usr\nN\n1.3\n\nN\n\nN\n-march=native\nN\n" | ./configure
+
+# CUDA 8.0 Patch to reduce compat code
+RUN if [ "${CUDA_VERSION}" = "8.0" ]; then sed -i '/capability.replace/a \ \ \ \ capability = "60" if capability == "70" else capability' third_party/gpus/crosstool/clang/bin/crosstool_wrapper_driver_is_not_gcc.tpl; fi
+
 RUN bazel build --config=opt --config=cuda //tensorflow/tools/pip_package:build_pip_package
 RUN rm -rf /root/tensorflow_pkg && bazel-bin/tensorflow/tools/pip_package/build_pip_package /root/tensorflow_pkg
 EOF

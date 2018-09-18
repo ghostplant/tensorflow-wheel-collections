@@ -15,7 +15,7 @@ fi
 WORKDIR=$(pwd)
 cd $(mktemp -d)
 
-WHEEL_NAME="tensorflow-1.10_cuda${CUDA_VERSION}-cp35-cp35m-linux_x86_64.whl"
+WHEEL_NAME="tensorflow-1.10_cuda${CUDA_VERSION}_all-cp35-cp35m-linux_x86_64.whl"
 
 cat <<EOF > Dockerfile
 FROM nvidia/cuda:${CUDA_VERSION}-cudnn${CUDNN_VERSION}-devel-ubuntu16.04

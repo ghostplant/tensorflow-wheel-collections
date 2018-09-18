@@ -3,7 +3,8 @@
 # You can change the driver version for compilation
 CUDA_VERSION=${CUDA_VERSION:-9.2}
 CUDNN_VERSION=${CUDNN_VERSION:-7.2}
-USING_NCCL2=${USING_NCCL2:-0}
+USING_NCCL2=${USING_NCCL2:-1}
+CPU_ARCH=${CPU_ARCH:-x86-64}
 
 if [ "x${USING_NCCL2}" = "x0" ]; then
 	USING_NCCL2="1.3"
@@ -36,7 +37,7 @@ WORKDIR /root/tensorflow
 # RUN sed -i 's/^#if TF_HAS_.*\$/#if !defined(__NVCC__)/g' tensorflow/core/platform/macros.h
 
 # 1st Y: GDR; 2nd Y: CUDA; 
-RUN /bin/echo -e "/usr/bin/python3\n\nN\nN\nN\nN\nN\nN\nY\nN\nN\nY\n${CUDA_VERSION}\n/usr/local/cuda\n${CUDNN_VERSION}\n/usr\nN\n${USING_NCCL2}\n\nN\n\nN\n-march=native\nN\n" | ./configure
+RUN /bin/echo -e "/usr/bin/python3\n\nN\nN\nN\nN\nN\nN\nY\nN\nN\nY\n${CUDA_VERSION}\n/usr/local/cuda\n${CUDNN_VERSION}\n/usr\nN\n${USING_NCCL2}\n\nN\n\nN\n-march=${CPU_ARCH}\nN\n" | ./configure
 
 # CUDA 8.0 Patch to reduce compat code
 RUN if [ "${CUDA_VERSION}" = "8.0" ]; then sed -i '/capability.replace/a \ \ \ \ capability = "60" if capability == "70" else capability' third_party/gpus/crosstool/clang/bin/crosstool_wrapper_driver_is_not_gcc.tpl; fi

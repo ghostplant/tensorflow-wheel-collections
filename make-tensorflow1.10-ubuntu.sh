@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 # You can change the driver version for compilation
-CUDA_VERSION=${CUDA_VERSION:-9.2}
+CUDA_VERSION=${CUDA_VERSION:-10.0}
 CUDNN_VERSION=${CUDNN_VERSION:-7}
 USING_NCCL2=${USING_NCCL2:-1}
 CPU_ARCH=${CPU_ARCH:-x86-64}
@@ -15,7 +15,7 @@ fi
 WORKDIR=$(pwd)
 cd $(mktemp -d)
 
-WHEEL_NAME="tensorflow-1.10_cuda${CUDA_VERSION}_all-cp35-cp35m-linux_x86_64.whl"
+WHEEL_NAME="tensorflow-1.10_cuda${CUDA_VERSION}_ubu1604-cp35-cp35m-linux_x86_64.whl"
 
 cat <<EOF > Dockerfile
 FROM nvidia/cuda:${CUDA_VERSION}-cudnn${CUDNN_VERSION}-devel-ubuntu16.04
@@ -25,7 +25,7 @@ MAINTAINER CUI Wei <ghostplant@qq.com>
 RUN echo "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64 /" > /etc/apt/sources.list.d/cuda.list
 RUN echo "deb http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64 /" > /etc/apt/sources.list.d/nvidia-ml.list
 
-RUN apt update && apt install -y --no-install-recommends zip unzip librdmacm-dev openjdk-8-jdk curl git vim-tiny less netcat-openbsd zlib1g-dev bash-completion g++ python3-setuptools python3-pip python3-wheel python3-numpy python3-dev libnccl2=2.2.13-1+cuda${CUDA_VERSION} libnccl-dev=2.2.13-1+cuda${CUDA_VERSION} && rm -rf /var/lib/apt/lists/*
+RUN apt update && apt install -y --no-install-recommends zip unzip librdmacm-dev openjdk-8-jdk curl git vim-tiny less netcat-openbsd zlib1g-dev bash-completion g++ python3-setuptools python3-pip python3-wheel python3-numpy python3-dev libnccl2=2.3.4-1+cuda${CUDA_VERSION} libnccl-dev=2.3.4-1+cuda${CUDA_VERSION} && rm -rf /var/lib/apt/lists/*
 
 RUN curl -Ls https://github.com/bazelbuild/bazel/releases/download/0.15.0/bazel_0.15.0-linux-x86_64.deb > bazel.deb && dpkg -i bazel.deb && rm bazel.deb
 RUN cd root && git clone http://github.com/tensorflow/tensorflow --branch r1.10 --single-branch --depth 1

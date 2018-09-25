@@ -25,14 +25,14 @@ git clone https://github.com/ghostplant/tensorflow-cuda-optimized
 cd tensorflow-cuda-optimized
 
 # For example:
-CUDA_VERSION=10.0 ./make-tensorflow1.10-ubuntu.sh
+CUDA_VERSION=10.0 ./make-tensorflow1.10-ubu1604.sh
 
 # or:
-CUDA_VERSION=9.2 ./make-tensorflow1.10-ubuntu.sh
+CUDA_VERSION=9.2 ./make-tensorflow1.10-ubu1604.sh
 
 # or:
-CUDA_VERSION=9.0 ./make-tensorflow1.10-ubuntu.sh
+CUDA_VERSION=9.0 ./make-tensorflow1.10-ubu1604.sh
 
 # or:
-CUDA_VERSION=8.0 ./make-tensorflow1.10-ubuntu.sh
+CUDA_VERSION=8.0 ./make-tensorflow1.10-ubu1604.sh
 ```

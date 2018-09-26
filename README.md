@@ -9,14 +9,10 @@ Note that CUDNN will be automatically included into binary packages, and the ext
 ```sh
 # Install Tensorflow-GPU 1.10 on `Ubuntu 16.04` with CUDA 8.0:
 pip3 install https://github.com/ghostplant/tensorflow-cuda-optimized/releases/download/tf-1.10-ubuntu/tensorflow-1.10_cuda8.0_ubu1604-cp35-cp35m-linux_x86_64.whl
-```
 
-```sh
 # Install Tensorflow-GPU 1.10 on `Ubuntu 16.04` with CUDA 9.0:
 pip3 install https://github.com/ghostplant/tensorflow-cuda-optimized/releases/download/tf-1.10-ubuntu/tensorflow-1.10_cuda9.0_ubu1604-cp35-cp35m-linux_x86_64.whl
-```
 
-```sh
 # Install Tensorflow-GPU 1.10 on `Ubuntu 16.04` with CUDA 9.2:
 pip3 install https://github.com/ghostplant/tensorflow-cuda-optimized/releases/download/tf-1.10-ubuntu/tensorflow-1.10_cuda9.2_ubu1604-cp35-cp35m-linux_x86_64.whl
 ```

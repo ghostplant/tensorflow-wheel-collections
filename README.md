@@ -2,8 +2,6 @@
 
 The list of all wheel-format downloads can be found in the [download page](https://github.com/ghostplant/tensorflow-cuda-optimized/releases).
 
-Note that CUDNN will be automatically included into binary packages, and the extra installation of CUDNN is not needed.
-
 ### Examples of Installation from online prebuilt binary:
 
 ```sh

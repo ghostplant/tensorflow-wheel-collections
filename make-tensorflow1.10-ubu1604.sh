@@ -33,7 +33,6 @@ RUN ln -s python3 /usr/bin/python
 RUN echo "/usr/local/cuda/targets/x86_64-linux/lib/stubs" > /etc/ld.so.conf.d/cuda-stubs.conf && ldconfig
 # RUN ln -s libdevice.compute_50.10.bc /usr/local/cuda/nvvm/libdevice/libdevice.10.bc
 RUN ln -sf /usr/lib/x86_64-linux-gnu/libnccl.so.2.* /usr/lib/libnccl.so.2
-RUN sed -i 's/\#if __NV_USE_NEW_KERNEL_LAUNCH/#if 0/g' /usr/local/cuda-9.*/include/crt/host_runtime.h >/dev/null 2>&1 || true
 
 WORKDIR /root/tensorflow
 

@@ -29,6 +29,9 @@ cd tensorflow-cuda-optimized
 CUDA_VERSION=10.0 ./make-tensorflow1.10-ubu1604.sh
 
 # or:
+CUDA_VERSION=10.0 ./make-tensorflow1.10-ubu1804.sh
+
+# or:
 CUDA_VERSION=9.2 ./make-tensorflow1.10-ubu1604.sh
 
 # or:

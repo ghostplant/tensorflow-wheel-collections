@@ -15,8 +15,8 @@ fi
 WORKDIR=$(pwd)
 cd $(mktemp -d)
 
-REPO=1604
-WHEEL_NAME="tensorflow-1.10_cuda${CUDA_VERSION}_ubu${REPO}-cp35-cp35m-linux_x86_64.whl"
+REPO=1804
+WHEEL_NAME="tensorflow-1.10_cuda${CUDA_VERSION}_ubu${REPO}-cp36-cp36m-linux_x86_64.whl"
 
 cat <<EOF > Dockerfile
 FROM nvidia/cuda:${CUDA_VERSION}-cudnn${CUDNN_VERSION}-devel-ubuntu${REPO:0:2}.${REPO:2}

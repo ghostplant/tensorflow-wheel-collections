@@ -26,7 +26,7 @@ MAINTAINER CUI Wei <ghostplant@qq.com>
 RUN echo "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu${REPO}/x86_64 /" > /etc/apt/sources.list.d/cuda.list
 RUN echo "deb http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu${REPO}/x86_64 /" > /etc/apt/sources.list.d/nvidia-ml.list
 
-RUN apt update && apt install -y --no-install-recommends zip unzip librdmacm-dev openjdk-8-jdk curl git vim-tiny less netcat-openbsd zlib1g-dev bash-completion g++ python3-setuptools python3-pip python3-wheel python3-numpy python3-dev libnccl2=2.3.4-1+cuda${CUDA_VERSION} libnccl-dev=2.3.4-1+cuda${CUDA_VERSION} && rm -rf /var/lib/apt/lists/*
+RUN apt update && apt install -y --no-install-recommends zip unzip librdmacm-dev openjdk-8-jdk curl git vim-tiny less netcat-openbsd zlib1g-dev bash-completion g++ python3-setuptools python3-pip python3-wheel python3-numpy python3-dev libnccl2 libnccl-dev && rm -rf /var/lib/apt/lists/*
 
 RUN curl -Ls https://github.com/bazelbuild/bazel/releases/download/0.15.0/bazel_0.15.0-linux-x86_64.deb > bazel.deb && dpkg -i bazel.deb && rm bazel.deb
 RUN cd root && git clone http://github.com/tensorflow/tensorflow --branch r1.10 --single-branch --depth 1

@@ -36,7 +36,7 @@ RUN /bin/echo -e "/usr/bin/python\n\nN\nN\nN\nN\nN\nN\nY\nN\nN\nY\n${CUDA_VERSIO
 # CUDA 8.0 Patch to reduce compat code
 RUN if [ "${CUDA_VERSION}" = "8.0" ]; then sed -i '/capability.replace/a \ \ \ \ capability = "60" if capability == "70" else capability' third_party/gpus/crosstool/clang/bin/crosstool_wrapper_driver_is_not_gcc.tpl; fi
 
-RUN bazel build --config=opt --config=cuda //tensorflow/tools/pip_package:build_pip_package
+RUN bazel build --config=opt --config=cuda --config=mkl --cxxopt="-D_GLIBCXX_USE_CXX11_ABI=0" //tensorflow/tools/pip_package:build_pip_package
 RUN rm -rf /root/tensorflow_pkg && bazel-bin/tensorflow/tools/pip_package/build_pip_package /root/tensorflow_pkg
 
 RUN cd /root/tensorflow_pkg && ls tensorflow-1.10*.whl && unzip tensorflow-1.10*.whl >/dev/null && rm tensorflow-1.10*.whl && cp /usr/local/cuda/targets/x86_64-linux/lib/libcudnn.so.${CUDNN_VERSION} tensorflow-*.data/purelib/tensorflow/python/ && cp /usr/include/cudnn_v${CUDNN_VERSION}.h tensorflow-*.data/purelib/tensorflow/include/ && zip -r /root/${WHEEL_NAME} * >/dev/null && rm -rf *

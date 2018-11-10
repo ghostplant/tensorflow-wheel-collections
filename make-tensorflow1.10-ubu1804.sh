@@ -26,7 +26,7 @@ MAINTAINER CUI Wei <ghostplant@qq.com>
 RUN echo "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu${REPO}/x86_64 /" > /etc/apt/sources.list.d/cuda.list
 RUN echo "deb http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu${REPO}/x86_64 /" > /etc/apt/sources.list.d/nvidia-ml.list
 
-RUN apt update && apt install -y --no-install-recommends zip unzip librdmacm-dev openjdk-8-jdk curl git vim-tiny less netcat-openbsd zlib1g-dev bash-completion g++ python3-setuptools python3-pip python3-wheel python3-numpy python3-dev libnccl2 libnccl-dev && rm -rf /var/lib/apt/lists/*
+RUN apt update && apt install -y --no-install-recommends --allow-change-held-packages zip unzip librdmacm-dev openjdk-8-jdk curl git vim-tiny less netcat-openbsd zlib1g-dev bash-completion g++ python3-setuptools python3-pip python3-wheel python3-numpy python3-dev libnccl2 libnccl-dev && rm -rf /var/lib/apt/lists/*
 
 RUN curl -Ls https://github.com/bazelbuild/bazel/releases/download/0.15.0/bazel_0.15.0-linux-x86_64.deb > bazel.deb && dpkg -i bazel.deb && rm bazel.deb
 RUN cd root && git clone http://github.com/tensorflow/tensorflow --branch r1.10 --single-branch --depth 1
@@ -43,15 +43,17 @@ RUN /bin/echo -e "/usr/bin/python3\n\nN\nN\nN\nN\nN\nN\nY\nN\nN\nY\n${CUDA_VERSI
 # CUDA 8.0 Patch to reduce compat code
 RUN if [ "${CUDA_VERSION}" = "8.0" ]; then sed -i '/capability.replace/a \ \ \ \ capability = "60" if capability == "70" else capability' third_party/gpus/crosstool/clang/bin/crosstool_wrapper_driver_is_not_gcc.tpl; fi
 
-RUN bazel build --config=opt --config=cuda //tensorflow/tools/pip_package:build_pip_package
+RUN bazel build --config=opt --config=cuda --config=mkl --cxxopt="-D_GLIBCXX_USE_CXX11_ABI=0" //tensorflow/tools/pip_package:build_pip_package
 RUN rm -rf /root/tensorflow_pkg && bazel-bin/tensorflow/tools/pip_package/build_pip_package /root/tensorflow_pkg
+RUN mv /root/tensorflow_pkg/tensorflow-*.whl /root/tensorflow_pkg/${WHEEL_NAME}
 
-RUN cd /root/tensorflow_pkg && ls tensorflow-1.10*.whl && unzip tensorflow-1.10*.whl >/dev/null && rm tensorflow-1.10*.whl && cp /usr/lib/x86_64-linux-gnu/libcudnn.so.${CUDNN_VERSION} tensorflow-*.data/purelib/tensorflow/python/ && cp /usr/include/x86_64-linux-gnu/cudnn_v${CUDNN_VERSION}.h tensorflow-*.data/purelib/tensorflow/include/ && zip -r /root/${WHEEL_NAME} * >/dev/null && rm -rf *
+# Packing libcudnn into tensorflow wheel:
+RUN cd /root/tensorflow_pkg && unzip ${WHEEL_NAME} >/dev/null && rm ${WHEEL_NAME} && cp /usr/lib/x86_64-linux-gnu/libcudnn.so.${CUDNN_VERSION} tensorflow-*.data/purelib/tensorflow/python/ && cp /usr/include/x86_64-linux-gnu/cudnn_v${CUDNN_VERSION}.h tensorflow-*.data/purelib/tensorflow/include/ && zip -r /root/${WHEEL_NAME} * >/dev/null && rm -rf * && mv /root/${WHEEL_NAME} .
 EOF
 
 
 docker build --network host -t tensorflow .
-docker run -it --rm -v ${WORKDIR}:/mnt tensorflow bash -c "cp /root/${WHEEL_NAME} /mnt"
+docker run -it --rm -v ${WORKDIR}:/mnt tensorflow bash -c "cp /root/tensorflow_pkg/${WHEEL_NAME} /mnt"
 
 cd "${WORKDIR}"
 

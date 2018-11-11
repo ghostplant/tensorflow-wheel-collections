@@ -15,8 +15,16 @@ fi
 WORKDIR=$(pwd)
 cd $(mktemp -d)
 
-REPO=1804
-WHEEL_NAME="tensorflow-1.10_cuda${CUDA_VERSION}_ubu${REPO}-cp36-cp36m-linux_x86_64.whl"
+REPO=${REPO:-$(grep DISTRIB_RELEASE /etc/lsb-release | awk -F'[=|.]' '{print $(NF-1)$(NF)}')}
+if [ "x$REPO" = "x1604" ]; then
+	PYVER=35
+elif [ "x$REPO" = "x1804" ]; then
+	PYVER=36
+else
+	echo "Only 16.04 or 18.04 is supported for Ubuntu Linux."
+	exit 1
+fi
+WHEEL_NAME="tensorflow-1.10_cuda${CUDA_VERSION}_mkl_ubu${REPO}-cp${PYVER}-cp${PYVER}m-linux_x86_64.whl"
 
 cat <<EOF > Dockerfile
 FROM nvidia/cuda:${CUDA_VERSION}-cudnn${CUDNN_VERSION}-devel-ubuntu${REPO:0:2}.${REPO:2}

@@ -32,23 +32,25 @@ git clone https://github.com/ghostplant/tensorflow-cuda-optimized
 cd tensorflow-cuda-optimized
 
 # For example:
-CUDA_VERSION=10.0 ./make-tensorflow1.10-ubu1804.sh
 
-# or:
-CUDA_VERSION=10.0 ./make-tensorflow1.10-ubu1604.sh
+# Ubuntu 18.04 + CUDA 10.0 =>
+REPO=1804 CUDA_VERSION=10.0 ./make-tensorflow1.10-ubuntu.sh
 
-# or:
+# Ubuntu 16.04 + CUDA 10.0 =>
+REPO=1604 CUDA_VERSION=10.0 ./make-tensorflow1.10-ubuntu.sh
+
+# Centos 7 + CUDA 10.0 =>
 CUDA_VERSION=10.0 ./make-tensorflow1.10-centos7.sh
 
-# or:
-CUDA_VERSION=9.2 ./make-tensorflow1.10-ubu1604.sh
+# Ubuntu 16.04 + CUDA 9.2 =>
+REPO=1604 CUDA_VERSION=9.2 ./make-tensorflow1.10-ubuntu.sh
 
-# or:
-CUDA_VERSION=9.0 ./make-tensorflow1.10-ubu1604.sh
+# Ubuntu 16.04 + CUDA 9.0 =>
+REPO=1604 CUDA_VERSION=9.0 ./make-tensorflow1.10-ubuntu.sh
 
-# or:
-CUDA_VERSION=8.0 ./make-tensorflow1.10-ubu1604.sh
+# Ubuntu 16.04 + CUDA 8.0 =>
+REPO=1604 CUDA_VERSION=8.0 ./make-tensorflow1.10-ubuntu.sh
 
-# or:
+# Centos 7 + CUDA 8.0 =>
 CUDA_VERSION=8.0 ./make-tensorflow1.10-centos7.sh
 ```

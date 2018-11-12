@@ -1,4 +1,4 @@
-### Tensorflow-GPU prebuild binaries with Dockerfile for Linux + CUDA 8.0/9.0/9.2/10.0 which is not provided by official Tensorflow pip repository.
+### Tensorflow-GPU prebuild binaries with Dockerfile for Linux + CUDA 8.0/9.0/9.2/10.0 not provided by official Tensorflow pip repository.
 
 Prebuilt binaries (wheel format) download link: [download page](https://github.com/ghostplant/tensorflow-cuda-optimized/releases).
 

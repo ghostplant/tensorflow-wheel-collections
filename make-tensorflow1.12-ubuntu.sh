@@ -44,7 +44,7 @@ WORKDIR /root/tensorflow
 # 1st Y: GDR; 2nd Y: CUDA; 
 RUN /bin/echo -e "/usr/bin/python3\n\nN\nN\nN\nN\nY\n${CUDA_VERSION}\n/usr/local/cuda\n${CUDNN_VERSION}\n/usr\nN\n2.3\n3.5,7.0\nN\n/usr/bin/gcc\nN\n-march=${CPU_ARCH}\nN\n" | ./configure
 
-RUN bazel build --config=opt --config=cuda --config=mkl --cxxopt="-D_GLIBCXX_USE_CXX11_ABI=0" //tensorflow/tools/pip_package:build_pip_package
+RUN bazel build --config=opt --config=cuda --config=mkl --cxxopt="-D_GLIBCXX_USE_CXX11_ABI=0" //tensorflow/tools/pip_package:build_pip_package --verbose_failures
 RUN rm -rf /root/tensorflow_pkg && bazel-bin/tensorflow/tools/pip_package/build_pip_package /root/tensorflow_pkg
 RUN ls /root/tensorflow_pkg && mv /root/tensorflow_pkg/tensorflow-*.whl /root/tensorflow_pkg/${WHEEL_NAME}
 

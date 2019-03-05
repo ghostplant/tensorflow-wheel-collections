@@ -20,7 +20,7 @@ else
 	echo "Only 16.04 or 18.04 is supported for Ubuntu Linux."
 	exit 1
 fi
-WHEEL_NAME="tensorflow-1.13_cuda${CUDA_VERSION}_mkl_ubu${REPO}-cp${PYVER}-cp${PYVER}m-linux_x86_64.whl"
+WHEEL_NAME="tensorflow-1.13_cuda${CUDA_VERSION}_ubu${REPO}-cp${PYVER}-cp${PYVER}m-linux_x86_64.whl"
 
 cat <<EOF > Dockerfile
 FROM nvidia/cuda:${CUDA_VERSION}-cudnn${CUDNN_VERSION}-devel-ubuntu${REPO:0:2}.${REPO:2}
@@ -62,7 +62,7 @@ ENV TF_SET_ANDROID_WORKSPACE=0
 
 RUN ./configure
 
-RUN bazel build --config=opt --config=cuda --config=mkl --cxxopt="-D_GLIBCXX_USE_CXX11_ABI=0" //tensorflow/tools/pip_package:build_pip_package
+RUN bazel build --config=opt --config=cuda --cxxopt="-g" --cxxopt="-D_GLIBCXX_USE_CXX11_ABI=0" //tensorflow/tools/pip_package:build_pip_package --verbose_failures
 RUN rm -rf /root/tensorflow_pkg && bazel-bin/tensorflow/tools/pip_package/build_pip_package /root/tensorflow_pkg
 RUN ls /root/tensorflow_pkg && mv /root/tensorflow_pkg/tensorflow-*.whl /root/tensorflow_pkg/${WHEEL_NAME}
 

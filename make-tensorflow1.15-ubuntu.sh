@@ -73,7 +73,7 @@ RUN rm -rf /root/tensorflow_pkg && bazel-bin/tensorflow/tools/pip_package/build_
 RUN ls /root/tensorflow_pkg && mv /root/tensorflow_pkg/tensorflow-*.whl /root/tensorflow_pkg/${WHEEL_NAME}
 
 # Packing libcudnn into tensorflow wheel:
-RUN cd /root/tensorflow_pkg && unzip ${WHEEL_NAME} >/dev/null && rm ${WHEEL_NAME} && cp /usr/lib/x86_64-linux-gnu/libcudnn.so.${CUDNN_VERSION} tensorflow_core/python/ && cp /usr/include/x86_64-linux-gnu/cudnn_v${CUDNN_VERSION}.h tensorflow_core/include/ && zip -r /root/${WHEEL_NAME} * >/dev/null && rm -rf * && mv /root/${WHEEL_NAME} .
+# RUN cd /root/tensorflow_pkg && unzip ${WHEEL_NAME} >/dev/null && rm ${WHEEL_NAME} && cp /usr/lib/x86_64-linux-gnu/libcudnn.so.${CUDNN_VERSION} tensorflow_core/python/ && cp /usr/include/x86_64-linux-gnu/cudnn_v${CUDNN_VERSION}.h tensorflow_core/include/ && zip -r /root/${WHEEL_NAME} * >/dev/null && rm -rf * && mv /root/${WHEEL_NAME} .
 EOF
 
 
